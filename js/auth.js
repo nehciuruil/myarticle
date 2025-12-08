@@ -1,7 +1,7 @@
 // Supabase配置
 window.supabaseConfig = {
     url: 'https://gimpssdzcwrdubylyouo.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ0.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpbXBzc2R6Y3dyZHVieWx5b3VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2NTA3ODYsImV4cCI6MjA4MDIyNjc4Nn0.1kKpKWcTmUjcc5Y_zrrqrTTS7FeoDD5P7yBLMGP-5pE', // 从Supabase获取
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpbXBzc2R6Y3dyZHVieWx5b3VvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2NTA3ODYsImV4cCI6MjA4MDIyNjc4Nn0.1kKpKWcTmUjcc5Y_zrrqrTTS7FeoDD5P7yBLMGP-5pE', // 从Supabase获取
 };//关于密码~自己试100年吧！有字符哦
 
 // 初始化Supabase
@@ -12,7 +12,7 @@ window.supabase = supabase.createClient(
 
 // 密码验证函数
 window.verifyPassword = function (password) {
-    if (password.length !== 26) return false;
+    if (password.length !== 25) return false;
     
     const mod = BigInt(1e9 + 7);
     
@@ -54,7 +54,7 @@ window.verifyPassword = function (password) {
     return sum === 89723934n;
 }
 // long long verifyPassword(string password){
-// 	if(password.size()!=26) return 0;
+// 	if(password.size()!=25) return 0;
 // 	long long sum=0,px=1,mod=1e9+7;
 // 	for(int i=25;i>=0;i--){
 // 		sum=(sum+px*password[i]%mod)%mod;
@@ -79,5 +79,6 @@ window.verifyPassword = function (password) {
 // 	return sum==89723934;
 
 // }
+
 
 
