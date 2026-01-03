@@ -794,9 +794,9 @@
                                         <i class="fas fa-edit"></i> 编辑
                                     </button>
                                     <button class="btn btn-danger" onclick="showDeleteConfirm(${JSON.stringify({
-                                        id: article.id,
-                                        title: article.title
-                                    }).replace(/"/g, '&quot;')})">
+                        id: article.id,
+                        title: article.title
+                    }).replace(/"/g, '&quot;')})">
                                         <i class="fas fa-trash"></i> 删除
                                     </button>
                                 ` : ''}
@@ -878,9 +878,9 @@
                                 <i class="fas fa-edit"></i> 编辑文章
                             </button>
                             <button class="btn btn-danger" onclick="showDeleteConfirm(${JSON.stringify({
-                                id: article.id,
-                                title: article.title
-                            }).replace(/"/g, '&quot;')})">
+                    id: article.id,
+                    title: article.title
+                }).replace(/"/g, '&quot;')})">
                                 <i class="fas fa-trash"></i> 删除文章
                             </button>
                         ` : ''}
@@ -992,9 +992,9 @@
                                 <i class="fas fa-eye"></i> 预览
                             </button>
                             <button class="btn btn-danger" onclick="showDeleteConfirm(${JSON.stringify({
-                                id: article.id,
-                                title: article.title
-                            }).replace(/"/g, '&quot;')})">
+                    id: article.id,
+                    title: article.title
+                }).replace(/"/g, '&quot;')})">
                                 <i class="fas fa-trash"></i> 删除
                             </button>
                             <button class="btn" onclick="router.navigate('/article')" style="background-color: #95a5a6; color: white;">
@@ -1142,11 +1142,11 @@
         function renderMarkdownAndLaTeX(markdown, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
-            
+
             if (typeof marked === 'undefined') {
-                loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js', function() {
-                    loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js', function() {
-                        loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js', function() {
+                loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js', function () {
+                    loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js', function () {
+                        loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js', function () {
                             renderContent(markdown, container);
                         });
                     });
@@ -1159,14 +1159,14 @@
         function renderContent(markdown, container) {
             const html = marked.parse(markdown);
             container.innerHTML = html;
-            
+
             if (typeof renderMathInElement !== 'undefined') {
                 renderMathInElement(container, {
                     delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                        {left: '\\(', right: '\\)', display: false},
-                        {left: '\\[', right: '\\]', display: true}
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false },
+                        { left: '\\(', right: '\\)', display: false },
+                        { left: '\\[', right: '\\]', display: true }
                     ],
                     throwOnError: false
                 });
