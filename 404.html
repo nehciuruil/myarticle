@@ -32,71 +32,6 @@
             color: #333;
         }
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 60px;
-            height: 100vh;
-            background-color: #fff;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            overflow-x: hidden;
-            transition: width 0.3s ease;
-            z-index: 1000;
-        }
-
-        .sidebar:hover {
-            width: 200px;
-        }
-
-        .sidebar-nav {
-            list-style: none;
-            padding: 20px 0;
-        }
-
-        .nav-item {
-            position: relative;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-            transition: background-color 0.2s ease;
-            min-height: 24px;
-            cursor: pointer;
-        }
-
-        .nav-item:hover {
-            background-color: #f0f2f5;
-        }
-
-        .nav-icon {
-            min-width: 24px;
-            color: #495057;
-            font-size: 18px;
-            margin-right: 20px;
-            flex-shrink: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .nav-text {
-            color: #343a40;
-            font-size: 15px;
-            font-weight: 500;
-            overflow: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease 0.1s;
-        }
-
-        .sidebar:hover .nav-text {
-            opacity: 1;
-        }
-
-        .nav-divider {
-            height: 1px;
-            background-color: #e9ecef;
-            margin: 10px 15px;
-        }
 
         .article-card {
             background: white;
@@ -516,12 +451,6 @@
             outline: none;
             border-color: #3498db;
         }
-
-        .tag-help {
-            font-size: 0.85rem;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
     </style>
 </head>
 
@@ -529,7 +458,8 @@
     <div id="nav">侧边栏</div>
     <main id="content" style="padding: 20px;"></main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+    <link rel="stylesheet" href="/css/sidebar" crossorigin="anonymous">
+    <script src="/script/sidebar.js"></script>
     <script>
         const SUPABASE_URL = 'https://hdhpftgjhvorrwtsdpgb.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkaHBmdGdqaHZvcnJ3dHNkcGdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzNTM5NjMsImV4cCI6MjA4MDkyOTk2M30.CEuXyk7ENGWV-huR8Tfbbu_fm55057GnQyZ_PMamook';
@@ -864,9 +794,9 @@
                                         <i class="fas fa-edit"></i> 编辑
                                     </button>
                                     <button class="btn btn-danger" onclick="showDeleteConfirm(${JSON.stringify({
-                                        id: article.id,
-                                        title: article.title
-                                    }).replace(/"/g, '&quot;')})">
+                        id: article.id,
+                        title: article.title
+                    }).replace(/"/g, '&quot;')})">
                                         <i class="fas fa-trash"></i> 删除
                                     </button>
                                 ` : ''}
@@ -948,9 +878,9 @@
                                 <i class="fas fa-edit"></i> 编辑文章
                             </button>
                             <button class="btn btn-danger" onclick="showDeleteConfirm(${JSON.stringify({
-                                id: article.id,
-                                title: article.title
-                            }).replace(/"/g, '&quot;')})">
+                    id: article.id,
+                    title: article.title
+                }).replace(/"/g, '&quot;')})">
                                 <i class="fas fa-trash"></i> 删除文章
                             </button>
                         ` : ''}
@@ -993,8 +923,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">标签</label>
-                        <input type="text" id="article-tag" class="tag-input" placeholder="多个标签用逗号分隔，例如：JavaScript,前端,教程">
-                        <div class="tag-help">多个标签用逗号分隔</div>
+                        <input type="text" id="article-tag" class="tag-input" placeholder="输入相关标签">
                     </div>
                     <div class="form-group">
                         <label class="form-label">内容 (Markdown格式)</label>
@@ -1049,8 +978,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">标签</label>
-                            <input type="text" id="article-tag" class="tag-input" value="${escapeHtml(article.tag || '')}" placeholder="多个标签用逗号分隔，例如：JavaScript,前端,教程">
-                            <div class="tag-help">多个标签用逗号分隔</div>
+                            <input type="text" id="article-tag" class="tag-input" value="${escapeHtml(article.tag || '')}" placeholder="输入相关标签">
                         </div>
                         <div class="form-group">
                             <label class="form-label">内容 (Markdown格式)</label>
@@ -1064,9 +992,9 @@
                                 <i class="fas fa-eye"></i> 预览
                             </button>
                             <button class="btn btn-danger" onclick="showDeleteConfirm(${JSON.stringify({
-                                id: article.id,
-                                title: article.title
-                            }).replace(/"/g, '&quot;')})">
+                    id: article.id,
+                    title: article.title
+                }).replace(/"/g, '&quot;')})">
                                 <i class="fas fa-trash"></i> 删除
                             </button>
                             <button class="btn" onclick="router.navigate('/article')" style="background-color: #95a5a6; color: white;">
@@ -1211,42 +1139,14 @@
                 .filter(tag => tag.length > 0);
         }
 
-        function initSidebar() {
-            document.getElementById("nav").innerHTML = '<nav class="sidebar">\
-                <ul class="sidebar-nav">\
-                    <li class="nav-item" onclick="window.location=\'https://hzy.us.kg/\'">\
-                        <i class="nav-icon fas fa-home"></i>\
-                        <span class="nav-text">首页</span>\
-                    </li>\
-                    <li class="nav-item" onclick="window.location=\'https://hzy.us.kg/game\'">\
-                        <i class="nav-icon fas fa-gamepad"></i>\
-                        <span class="nav-text">游戏</span>\
-                    </li>\
-                    <li class="nav-item" onclick="window.location=\'https://hzy.us.kg/tools\'">\
-                        <i class="nav-icon fas fa-wrench"></i>\
-                        <span class="nav-text">实用工具</span>\
-                    </li>\
-                    <li class="nav-item" onclick="router.navigate(\'/article\')">\
-                        <i class="nav-icon fas fa-newspaper"></i>\
-                        <span class="nav-text">文章</span>\
-                    </li>\
-                    <li class="nav-divider"></li>\
-                    <li class="nav-item" onclick="window.location=\'https://github.com/HZY1618yzh/home\'">\
-                        <i class="nav-icon fab fa-github"></i>\
-                        <span class="nav-text">GitHub</span>\
-                    </li>\
-                </ul>\
-            </nav>';
-        }
-
         function renderMarkdownAndLaTeX(markdown, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
-            
+
             if (typeof marked === 'undefined') {
-                loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js', function() {
-                    loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js', function() {
-                        loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js', function() {
+                loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js', function () {
+                    loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js', function () {
+                        loadScript('https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js', function () {
                             renderContent(markdown, container);
                         });
                     });
@@ -1259,14 +1159,14 @@
         function renderContent(markdown, container) {
             const html = marked.parse(markdown);
             container.innerHTML = html;
-            
+
             if (typeof renderMathInElement !== 'undefined') {
                 renderMathInElement(container, {
                     delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                        {left: '\\(', right: '\\)', display: false},
-                        {left: '\\[', right: '\\]', display: true}
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false },
+                        { left: '\\(', right: '\\)', display: false },
+                        { left: '\\[', right: '\\]', display: true }
                     ],
                     throwOnError: false
                 });
